@@ -1,229 +1,782 @@
+<!--
+  Pooja Shri M - Enhanced Portfolio (single-file)
+  - Place your resume PDF at: /assets/Pooja_Shri_M_Resume.pdf or update the resume link below
+  - Projects included:
+      - https://www.ljswrappings.store
+      - https://dmtodotcom.onrender.com
+      - Mountain Haute (description)
+  - Internship text updated per resume
+  - Created: 2025
+-->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pooja Shri M - Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pooja Shri M — Portfolio</title>
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Meta -->
+  <meta name="description" content="Pooja Shri M — Computer Science Engineer, Full-Stack Developer. Portfolio showcasing projects, skills, internship experience, and contact details." />
+  <meta name="author" content="Pooja Shri M" />
+
   <style>
+    /* -------------------------
+       Custom CSS (complements Tailwind)
+       ------------------------- */
+    :root{
+      --gold: #B48843;
+      --charcoal: #1F2937;
+      --muted: #6B7280;
+      --bg: #F9FAFB;
+      --glass: rgba(255,255,255,0.75);
+    }
+    html,body { height: 100%; }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #F9FAFB;
-      color: #1F2937;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--charcoal);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
+    h1,h2,h3,h4,h5 { font-family: 'Playfair Display', serif; }
+    /* luxury header */
+    .nav-link { transition: color .25s, transform .22s; }
+    .nav-link:hover { color: var(--gold); transform: translateY(-3px); }
+    .project-card { transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s; border:1px solid rgba(0,0,0,.06); background: #fff; }
+    .project-card:hover { transform: translateY(-10px); box-shadow: 0 25px 60px rgba(0,0,0,.12); }
+    .rounded-4xl { border-radius: 1.5rem; }
+    .rounded-3xl { border-radius: 1rem; }
+    .shadow-3xl { box-shadow: 0 18px 50px rgba(8,15,25,0.08); }
+    .text-gold { color: var(--gold); }
+    .bg-gold { background-color: var(--gold); }
+    .timeline-dot { box-shadow: 0 0 0 8px #E5E7EB; transition: transform .25s, background-color .3s; }
+    .timeline-dot:hover { transform: scale(1.08); background-color: var(--gold); }
+    .glass-card { background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.75)); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.4); }
+    .section-fade { opacity: 0; transform: translateY(24px); transition: all .9s cubic-bezier(.2,.9,.25,1); }
+    .section-fade.visible { opacity: 1; transform: translateY(0); }
+    .skill-pill { transition: transform .28s, box-shadow .28s; }
+    .skill-pill:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+    /* small helpers */
+    .max-wide { max-width: 1200px; margin-left:auto;margin-right:auto; }
+    /* print resume styling */
+    @media print {
+      header, footer, .no-print { display: none !important; }
+      body { background: #fff; color: #000; }
     }
-    .nav-link { transition: color 0.4s, transform 0.3s; }
-    .nav-link:hover { color: #B48843; transform: translateY(-3px); }
-    .project-card {
-      transition: transform 0.4s cubic-bezier(0.25,0.8,0.25,1), box-shadow 0.4s;
-      border: 1px solid rgba(0,0,0,0.05);
-      background-color: #fff;
+    /* mobile safe spacing for large hero */
+    @media (max-width: 640px) {
+      .hero-title { font-size: 2.25rem !important; }
     }
-    .project-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
-    }
-    .section-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    .section-fade-in.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .bg-b48843 { background-color: #B48843; }
-    .text-b48843 { color: #B48843; }
   </style>
 </head>
-<body class="antialiased">
+<body class="antialiased leading-relaxed">
 
-  <!-- Navbar -->
-  <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 shadow-xl">
-    <nav class="container mx-auto px-10 py-6 flex justify-between items-center">
-      <a href="#" class="text-4xl font-black text-gray-900 tracking-wider">Pooja Shri M</a>
-      <div class="hidden md:flex space-x-12">
-        <a href="#skills" class="nav-link text-gray-700 font-semibold text-xl">Skills</a>
-        <a href="#projects" class="nav-link text-gray-700 font-semibold text-xl">Projects</a>
-        <a href="#journey" class="nav-link text-gray-700 font-semibold text-xl">Journey</a>
-        <a href="#contact" class="nav-link text-gray-700 font-semibold text-xl">Contact</a>
-      </div>
+  <!-- ===========================
+       NAVBAR
+       =========================== -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-md border-b">
+    <div class="max-wide px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">PS</div>
+        <div>
+          <div class="text-2xl font-extrabold tracking-wide">Pooja Shri M</div>
+          <div class="text-sm text-muted-foreground text-gray-500">Computer Science Engineer</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <a class="nav-link text-lg font-semibold text-gray-700" href="#skills">Skills</a>
+        <a class="nav-link text-lg font-semibold text-gray-700" href="#projects">Projects</a>
+        <a class="nav-link text-lg font-semibold text-gray-700" href="#journey">Journey</a>
+        <a class="nav-link text-lg font-semibold text-gray-700" href="#testimonials">Testimonials</a>
+        <a class="nav-link text-lg font-semibold text-gray-700" href="#contact">Contact</a>
+        <a class="ml-4 inline-flex items-center gap-2 px-4 py-2 bg-black text-white rounded-full font-medium hover:opacity-95" href="#download-resume">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 3v12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M8 11l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M21 21H3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          Resume
+        </a>
+      </nav>
+
+      <!-- mobile menu button -->
       <div class="md:hidden">
-        <button id="menu-btn" class="text-gray-800 p-3 rounded-md hover:bg-gray-100">
-          <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"></path>
+        <button id="mobile-toggle" aria-expanded="false" aria-controls="mobile-menu" class="p-2 rounded-md hover:bg-gray-100">
+          <svg id="mobile-open" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <svg id="mobile-close" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M6 18L18 6M6 6l12 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
         </button>
       </div>
-    </nav>
-    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-inner pb-4">
-      <a href="#skills" class="block py-4 px-10 text-lg text-gray-700 hover:text-b48843">Skills</a>
-      <a href="#projects" class="block py-4 px-10 text-lg text-gray-700 hover:text-b48843">Projects</a>
-      <a href="#journey" class="block py-4 px-10 text-lg text-gray-700 hover:text-b48843">Journey</a>
-      <a href="#contact" class="block py-4 px-10 text-lg text-gray-700 hover:text-b48843">Contact</a>
+    </div>
+
+    <!-- mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t bg-white/95">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a class="py-3 px-2 rounded-md nav-link" href="#skills">Skills</a>
+        <a class="py-3 px-2 rounded-md nav-link" href="#projects">Projects</a>
+        <a class="py-3 px-2 rounded-md nav-link" href="#journey">Journey</a>
+        <a class="py-3 px-2 rounded-md nav-link" href="#contact">Contact</a>
+        <a class="py-3 px-2 rounded-md nav-link" href="#download-resume">Download Resume</a>
+      </div>
     </div>
   </header>
 
-  <main class="container mx-auto px-10 py-20">
+  <!-- ===========================
+       HERO / INTRO
+       =========================== -->
+  <main class="max-wide px-6 py-12 lg:py-20">
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <!-- left / hero text -->
+      <div class="space-y-6">
+        <h1 class="hero-title text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight">Pooja Shri M</h1>
+        <p class="text-xl md:text-2xl text-gray-700 max-w-2xl">
+          Computer Science Engineer • Full-Stack Developer • Systems & IoT Enthusiast.
+          I build elegant, scalable web applications and practical intelligent systems that solve real problems.
+        </p>
 
-    <!-- Hero -->
-    <section class="text-center py-32 bg-gradient-to-br from-gray-50 to-gray-100 rounded-4xl shadow-3xl mb-24 section-fade-in">
-      <h1 class="text-7xl md:text-8xl font-extrabold text-gray-900 leading-tight">Pooja Shri M</h1>
-      <p class="mt-8 text-3xl text-gray-700 font-light tracking-wide">
-        Computer Science Engineer | Developer | Innovator
-      </p>
-      <p class="mt-10 max-w-4xl mx-auto text-gray-600 text-2xl leading-relaxed">
-        Passionate Computer Science student with expertise in <span class="font-semibold text-gray-800">full-stack development</span>, cloud-based applications, and intelligent systems. Recognized nationally for innovative solutions and strong problem-solving skills.
-      </p>
-      <div class="mt-16 flex justify-center space-x-10">
-        <a href="https://pooojashri.github.io/PORTFOLIO./" target="_blank" class="bg-gray-800 text-white px-12 py-6 rounded-full font-bold text-xl shadow-2xl hover:bg-gray-900 transform hover:scale-105 transition-all">Live Portfolio</a>
-        <a href="mailto:poojashri.off@gmail.com" class="bg-gray-700 text-white px-12 py-6 rounded-full font-bold text-xl shadow-2xl hover:bg-gray-800 transform hover:scale-105 transition-all">Contact Me</a>
-      </div>
-    </section>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <a href="#projects" class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gold text-white font-semibold shadow hover:opacity-95">
+            View Projects
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M5 12h14M12 5l7 7-7 7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
 
-    <!-- Technical Skills -->
-    <section id="skills" class="py-24 bg-white rounded-4xl shadow-3xl mb-24 section-fade-in">
-      <h2 class="text-6xl font-bold text-center mb-8 text-gray-800">Technical Skills</h2>
-      <div class="grid md:grid-cols-3 gap-16 px-16 mt-16">
-        <div class="p-12 rounded-3xl shadow-lg border">
-          <h3 class="text-4xl font-semibold mb-8 text-gray-800">Programming</h3>
-          <ul class="space-y-5 text-gray-700 text-2xl">
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>Java</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>Python</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>C</li>
-          </ul>
-        </div>
-        <div class="p-12 rounded-3xl shadow-lg border">
-          <h3 class="text-4xl font-semibold mb-8 text-gray-800">Web Development</h3>
-          <ul class="space-y-5 text-gray-700 text-2xl">
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>HTML5, CSS3, JavaScript</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>React.js, Node.js, Express.js</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>REST APIs, Authentication, Deployment</li>
-          </ul>
-        </div>
-        <div class="p-12 rounded-3xl shadow-lg border">
-          <h3 class="text-4xl font-semibold mb-8 text-gray-800">Database & Tools</h3>
-          <ul class="space-y-5 text-gray-700 text-2xl">
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>MongoDB, Firebase, MySQL</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>Git, GitHub, VS Code, Postman</li>
-            <li><span class="text-b48843 font-bold text-3xl mr-3">◆</span>Arduino, OpenCV, Pandas, NumPy</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+          <a id="download-resume" href="/assets/Pooja_Shri_M_Resume.pdf" target="_blank" class="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-gray-200 bg-white font-semibold hover:shadow">
+            Download Resume (PDF)
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path d="M12 3v12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M8 11l4 4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </a>
 
-    <!-- Projects -->
-    <section id="projects" class="py-24 section-fade-in">
-      <h2 class="text-6xl font-bold text-center mb-8 text-gray-800">Projects Showcase</h2>
-      <p class="text-center text-gray-600 mb-20 text-2xl">Key projects demonstrating innovation and full-stack excellence.</p>
-      <div class="grid md:grid-cols-2 gap-16">
-
-        <div class="project-card p-12 rounded-4xl shadow-2xl">
-          <h3 class="text-4xl font-bold mb-5 text-gray-800">🛍 LJS Wrappings</h3>
-          <p class="text-gray-700 mb-8 text-xl">A custom-built full-stack platform for luxury gift wrapping services, featuring secure checkout, product filtering, and modern UI with Node.js & MongoDB.</p>
-          <a href="https://www.ljswrappings.store" target="_blank" class="text-b48843 text-xl font-semibold underline hover:text-gray-800">Visit Website →</a>
+          <a href="mailto:poojashri.off@gmail.com" class="inline-flex items-center gap-3 px-6 py-3 rounded-full text-gray-800 bg-gray-100 font-medium hover:bg-gray-200">
+            Contact Me
+          </a>
         </div>
 
-        <div class="project-card p-12 rounded-4xl shadow-2xl">
-          <h3 class="text-4xl font-bold mb-5 text-gray-800">🌐 DMToDotCom</h3>
-          <p class="text-gray-700 mb-8 text-xl">A powerful web tool for online project management and student collaboration. Designed using React and Express.js with full REST API integration.</p>
-          <a href="https://dmtodotcom.onrender.com" target="_blank" class="text-b48843 text-xl font-semibold underline hover:text-gray-800">Explore App →</a>
-        </div>
-
-        <div class="project-card p-12 rounded-4xl shadow-2xl">
-          <h3 class="text-4xl font-bold mb-5 text-gray-800">🧠 Fake Social Media Profile Detection</h3>
-          <p class="text-gray-700 mb-8 text-xl">Built ML models (Random Forest, Decision Tree) achieving 92% accuracy to detect fake social media profiles. Recognized as <span class="text-b48843 font-semibold">Smart India Hackathon Finalist</span>.</p>
-        </div>
-
-        <div class="project-card p-12 rounded-4xl shadow-2xl">
-          <h3 class="text-4xl font-bold mb-5 text-gray-800">🚀 Mountain Haute E-Commerce</h3>
-          <p class="text-gray-700 mb-8 text-xl">Engineered a full-stack luxury e-commerce site using Node.js, Express, and MongoDB, supporting 500+ products with secure authentication and try-on feature.</p>
-        </div>
-
-        <div class="project-card p-12 rounded-4xl shadow-2xl">
-          <h3 class="text-4xl font-bold mb-5 text-gray-800">🌾 IoT-Based Drone Irrigation System</h3>
-          <p class="text-gray-700 mb-8 text-xl">Developed a real-time IoT drone irrigation system with sub-500ms latency using Arduino & Firebase, achieving 25% estimated water savings.</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Journey -->
-    <section id="journey" class="py-24 bg-white rounded-4xl shadow-3xl section-fade-in">
-      <h2 class="text-6xl font-bold text-center mb-8 text-gray-800">My Journey</h2>
-      <div class="relative max-w-5xl mx-auto">
-        <div class="absolute left-1/2 w-2 bg-gray-200 h-full transform -translate-x-1/2 rounded-full"></div>
-
-        <div class="relative mb-20 flex items-center justify-between flex-row-reverse md:flex-row">
-          <div class="w-full md:w-1/2 pr-24 md:pr-0 md:pl-24 text-left md:text-right">
-            <p class="text-gray-500 text-lg font-medium">June 2025 – July 2025</p>
-            <h3 class="text-3xl font-semibold text-gray-800 mt-3">Web Development Intern</h3>
-            <p class="text-gray-700 text-xl leading-snug">FLATTRRADE Broking Pvt. Ltd. (in collaboration with Tata Consultancy Services)</p>
-            <p class="text-gray-600 mt-2 text-lg">Worked on modernizing client dashboards, optimizing APIs, and developing responsive web components for financial applications.</p>
+        <div class="mt-6 flex items-center gap-6 text-gray-600">
+          <div>
+            <div class="text-3xl font-bold">8.81</div>
+            <div class="text-sm">CGPA</div>
           </div>
-          <div class="w-14 h-14 bg-b48843 rounded-full absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-white text-3xl timeline-dot">💼</div>
-        </div>
-
-        <div class="relative mb-20 flex items-center justify-between flex-row md:flex-row-reverse">
-          <div class="w-full md:w-1/2 pl-24 md:pl-0 md:pr-24 text-left">
-            <p class="text-gray-500 text-lg font-medium">May 2026 (Expected)</p>
-            <h3 class="text-3xl font-semibold text-gray-800 mt-3">B.E. Computer Science & Engineering</h3>
-            <p class="text-gray-700 text-xl">Panimalar Engineering College, Chennai</p>
-            <p class="text-gray-700 text-lg mt-2">CGPA: 8.81 / 10.0</p>
+          <div class="border-l h-8"></div>
+          <div>
+            <div class="text-3xl font-bold">Smart India</div>
+            <div class="text-sm">Hackathon Finalist</div>
           </div>
-          <div class="w-14 h-14 bg-b48843 rounded-full absolute left-1/2 transform -translate-x-1/2 flex items-center justify-center text-white text-3xl timeline-dot">🎓</div>
+          <div class="border-l h-8"></div>
+          <div>
+            <div class="text-3xl font-bold">FLATTRRADE</div>
+            <div class="text-sm">Web Dev Intern (TCS collaboration)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right / visual card -->
+      <div class="glass-card p-8 rounded-3xl shadow-3xl border">
+        <div class="flex flex-col gap-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="text-sm text-gray-500">Location</div>
+              <div class="font-semibold text-lg">Chennai, India</div>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-500">Availability</div>
+              <div class="font-semibold text-lg text-gold">Open for 2026 Roles</div>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <h4 class="text-lg font-semibold">Quick Links</h4>
+            <div class="mt-3 flex gap-3 flex-wrap">
+              <a class="px-3 py-2 rounded-full border text-sm hover:bg-gray-50" href="mailto:poojashri.off@gmail.com">Email</a>
+              <a class="px-3 py-2 rounded-full border text-sm hover:bg-gray-50" href="https://github.com/pooojashri" target="_blank">GitHub</a>
+              <a class="px-3 py-2 rounded-full border text-sm hover:bg-gray-50" href="https://www.ljswrappings.store" target="_blank">LJS Wrappings</a>
+              <a class="px-3 py-2 rounded-full border text-sm hover:bg-gray-50" href="https://dmtodotcom.onrender.com" target="_blank">DMToDotCom</a>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold">Core Focus</h4>
+            <p class="text-gray-600 mt-2">Full-Stack Web Development, Scalable Backend Systems, IoT Integration, ML Prototyping, and Real-Time Systems.</p>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold">Education</h4>
+            <p class="text-gray-600 mt-2">B.E., Computer Science & Engineering — Panimalar Engineering College (Expected May 2026)</p>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-gray-500">Resume</div>
+            <div class="text-sm font-medium"><a href="/assets/Pooja_Shri_M_Resume.pdf" class="underline">Open PDF</a></div>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- ===========================
+         TECHNICAL SKILLS (expanded)
+         =========================== -->
+    <section id="skills" class="mt-16 section-fade">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-4xl font-extrabold">Technical Skills</h2>
+        <div class="text-right text-sm text-gray-500">Updated to match resume</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Programming -->
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold mb-4">Programming Languages</h3>
+          <ul class="space-y-3 text-lg text-gray-700">
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>Java</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>Python</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>C</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>JavaScript (ES6+)</li>
+          </ul>
+        </div>
+
+        <!-- Web -->
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold mb-4">Web Development</h3>
+          <ul class="space-y-3 text-lg text-gray-700">
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>HTML5, CSS3, Tailwind</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>React.js, Next.js (SSR/SSG)</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>Node.js, Express.js</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>REST & GraphQL APIs</li>
+          </ul>
+        </div>
+
+        <!-- DB & Tools -->
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold mb-4">Databases & Tools</h3>
+          <ul class="space-y-3 text-lg text-gray-700">
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>MongoDB, Firebase, MySQL</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>Git, GitHub, VS Code</li>
+            <li class="flex items-center gap-3"><span class="w-3 h-3 bg-gold rounded-full"></span>Postman, Docker (basics), Render/Heroku deployment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold mb-4">AI / Data Tools</h3>
+          <p class="text-gray-700 mb-3">Practical / prototyping tools used in projects and hackathons.</p>
+          <ul class="space-y-2 text-lg">
+            <li>Scikit-learn, Pandas, NumPy</li>
+            <li>OpenCV (Computer Vision)</li>
+            <li>TensorFlow / PyTorch (basic prototyping)</li>
+          </ul>
+        </div>
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold mb-4">IoT & Embedded</h3>
+          <p class="text-gray-700 mb-3">Systems & sensor integration for real-time control projects.</p>
+          <ul class="space-y-2 text-lg">
+            <li>Arduino, ESP32 (sensors & actuators)</li>
+            <li>Realtime messaging with Firebase / MQTT</li>
+            <li>Edge <small>data acquisition & latency optimisation</small></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         PROJECTS (detailed)
+         =========================== -->
+    <section id="projects" class="mt-14 section-fade">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-4xl font-extrabold">Projects Showcase</h2>
+        <div class="text-sm text-gray-500">Full-stack focus + live links</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- LJS Wrappings -->
+        <article class="project-card p-6 rounded-3xl">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-gradient-to-br from-amber-300 to-amber-500 text-white flex items-center justify-center font-bold">LJ</div>
+            <div>
+              <h3 class="text-2xl font-bold">LJS Wrappings — Luxury Gift E-commerce</h3>
+              <p class="text-gray-600 mt-2">A custom-built full-stack e-commerce platform for gift wrapping services with product catalog, secure checkout, and admin dashboard. Built with Node.js, Express, MongoDB, and modern frontend patterns.</p>
+              <div class="mt-4 flex items-center gap-4">
+                <a class="text-gold font-semibold underline" href="https://www.ljswrappings.store" target="_blank" rel="noopener noreferrer">Visit LJS Wrappings</a>
+                <button data-modal="modal-ljs" class="px-3 py-2 rounded-full border text-sm">View details</button>
+              </div>
+              <div class="mt-4 text-sm text-gray-500">Role: Full-Stack Engineer — implemented checkout, product filters, admin product uploads, and order management.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- DMToDotCom -->
+        <article class="project-card p-6 rounded-3xl">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-indigo-500 text-white flex items-center justify-center font-bold">DM</div>
+            <div>
+              <h3 class="text-2xl font-bold">DMToDotCom — Project Collaboration Tool</h3>
+              <p class="text-gray-600 mt-2">A student-focused collaboration and project management web app with real-time notifications, task boards, and a sleek UI. Built with React, Node.js, Express, and deployed on Render.</p>
+              <div class="mt-4 flex items-center gap-4">
+                <a class="text-gold font-semibold underline" href="https://dmtodotcom.onrender.com" target="_blank" rel="noopener noreferrer">Open DMToDotCom</a>
+                <button data-modal="modal-dm" class="px-3 py-2 rounded-full border text-sm">View details</button>
+              </div>
+              <div class="mt-4 text-sm text-gray-500">Role: Lead Frontend & API integration — built UI components, task sync, and auth flows.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Mountain Haute -->
+        <article class="project-card p-6 rounded-3xl">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-pink-500 text-white flex items-center justify-center font-bold">MH</div>
+            <div>
+              <h3 class="text-2xl font-bold">Mountain Haute — Luxury E-Commerce (Demo)</h3>
+              <p class="text-gray-600 mt-2">A luxury-style e-commerce platform emphasizing design and UX: full product view, GSAP interactions, secure checkout integration and Razorpay integration in production builds.</p>
+              <div class="mt-4 flex items-center gap-4">
+                <button data-modal="modal-mh" class="px-3 py-2 rounded-full border text-sm">View details</button>
+              </div>
+              <div class="mt-4 text-sm text-gray-500">Role: Full-Stack Architect — front-end experience, product presentation, and payment flow configuration.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fake Social Media Project -->
+        <article class="project-card p-6 rounded-3xl">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold">AI</div>
+            <div>
+              <h3 class="text-2xl font-bold">Fake Social Media Profile Detection</h3>
+              <p class="text-gray-600 mt-2">Designed ML pipelines with Scikit-learn (Random Forest & Decision Tree) to detect fake profiles. Achieved 92% accuracy and reduced manual review time by ~30% in validation scenarios.</p>
+              <div class="mt-4 flex items-center gap-4">
+                <button data-modal="modal-ai" class="px-3 py-2 rounded-full border text-sm">View metrics</button>
+              </div>
+              <div class="mt-4 text-sm text-gray-500">Recognition: Smart India Hackathon Finalist.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- IoT Drone Irrigation -->
+        <article class="project-card p-6 rounded-3xl">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-lg bg-sky-500 text-white flex items-center justify-center font-bold">IoT</div>
+            <div>
+              <h3 class="text-2xl font-bold">IoT-Based Drone Irrigation System</h3>
+              <p class="text-gray-600 mt-2">Embedded system (Arduino/ESP32) with Firebase telemetry and command control achieving sub-500ms control latency. Projected water savings: 25% via targeted irrigation.</p>
+              <div class="mt-4 flex items-center gap-4">
+                <button data-modal="modal-iot" class="px-3 py-2 rounded-full border text-sm">View details</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div> <!-- end projects grid -->
+    </section>
+
+    <!-- ===========================
+         PROJECT MODALS (hidden initially)
+         =========================== -->
+    <!-- Modal Template: copy markup for each project -->
+    <div id="modal-layer" class="fixed inset-0 z-60 hidden items-center justify-center bg-black/60 p-6">
+      <!-- LJS modal -->
+      <div id="modal-ljs" class="modal-content bg-white rounded-2xl max-w-4xl w-full p-6 hidden">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-2xl font-bold">LJS Wrappings — Details</h3>
+            <p class="text-gray-600 mt-2">Stack: React (Frontend), Node.js/Express (API), MongoDB (DB), Stripe/Razorpay for payments (depending on build). Features: product customization, secure checkout, admin panel, order tracking.</p>
+            <ul class="mt-4 text-gray-700 list-disc pl-6 space-y-1">
+              <li>Category & product filters with fast search</li>
+              <li>Admin dashboard for product & orders</li>
+              <li>Optimized images and CDN-friendly build</li>
+            </ul>
+          </div>
+          <div>
+            <button class="close-modal px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-semibold">Role & Impact</h4>
+            <p class="text-gray-600 mt-2">Lead Full-Stack Engineer — Implemented checkout & admin features, ensured secure auth, and improved conversion via UX improvements.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold">Live</h4>
+            <a href="https://www.ljswrappings.store" target="_blank" class="text-gold underline">https://www.ljswrappings.store</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- DM modal -->
+      <div id="modal-dm" class="modal-content bg-white rounded-2xl max-w-4xl w-full p-6 hidden">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-2xl font-bold">DMToDotCom — Details</h3>
+            <p class="text-gray-600 mt-2">A collaborative platform for students & teams. Stack: React, Express, MongoDB. Realtime features with web sockets and scheduled background tasks.</p>
+          </div>
+          <div>
+            <button class="close-modal px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+        <div class="mt-6">
+          <h4 class="font-semibold">Live</h4>
+          <a href="https://dmtodotcom.onrender.com" target="_blank" class="text-gold underline">https://dmtodotcom.onrender.com</a>
+        </div>
+      </div>
+
+      <!-- Mountain Haute modal -->
+      <div id="modal-mh" class="modal-content bg-white rounded-2xl max-w-4xl w-full p-6 hidden">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-2xl font-bold">Mountain Haute — Details</h3>
+            <p class="text-gray-600 mt-2">E-commerce platform emphasizing luxury design with product views and a smooth checkout experience. Stack: Node.js, Express, MongoDB, and front-end crafted to mimic premium brand aesthetics.</p>
+            <ul class="mt-4 text-gray-700 list-disc pl-6">
+              <li>GSAP interactions & product view animations</li>
+              <li>Responsive, full-screen product presentations</li>
+              <li>Razorpay integration for Indian payments</li>
+            </ul>
+          </div>
+          <div>
+            <button class="close-modal px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI modal -->
+      <div id="modal-ai" class="modal-content bg-white rounded-2xl max-w-3xl w-full p-6 hidden">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-2xl font-bold">Fake Profile Detection — Metrics</h3>
+            <p class="text-gray-600 mt-2">Key metrics from model evaluation and deployment prototypes.</p>
+            <ul class="mt-3 text-gray-700 pl-6 list-disc">
+              <li>Model: Random Forest / Decision Tree</li>
+              <li>Accuracy: 92% (validation)</li>
+              <li>Manual review reduction: ~30%</li>
+            </ul>
+          </div>
+          <div>
+            <button class="close-modal px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+        <div class="mt-4">
+          <canvas id="chart-ai" style="height:220px;"></canvas>
+        </div>
+      </div>
+
+      <!-- IoT modal -->
+      <div id="modal-iot" class="modal-content bg-white rounded-2xl max-w-3xl w-full p-6 hidden">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-2xl font-bold">IoT Drone Irrigation — Technical</h3>
+            <p class="text-gray-600 mt-2">Details on telemetry, control loops, and latency performance.</p>
+          </div>
+          <div>
+            <button class="close-modal px-3 py-2 rounded-md bg-gray-100 hover:bg-gray-200">Close</button>
+          </div>
+        </div>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h4 class="font-semibold">Latency</h4>
+            <p class="text-gray-600 mt-2">Achieved sub-500ms control loops in prototype with prioritized telemetry packets.</p>
+          </div>
+          <div>
+            <h4 class="font-semibold">Water Savings</h4>
+            <p class="text-gray-600 mt-2">Projected savings: 25% through targeted irrigation using soil-moisture sensors and predictive routing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===========================
+         TIMELINE / JOURNEY (Internship updated)
+         =========================== -->
+    <section id="journey" class="mt-16 section-fade">
+      <h2 class="text-4xl font-extrabold mb-6">My Journey</h2>
+      <div class="relative">
+        <div class="absolute left-1/2 top-0 -translate-x-1/2 w-1 h-full bg-gray-200"></div>
+
+        <!-- Internship -->
+        <div class="relative mb-12 flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div class="md:w-1/2 md:pr-12">
+            <p class="text-sm text-gray-500">June 2025 – July 2025</p>
+            <h3 class="text-2xl font-semibold mt-2">Web Development Intern</h3>
+            <p class="text-gray-700 mt-2">FLATTRRADE Broking Pvt. Ltd. (in collaboration with Tata Consultancy Services)</p>
+            <ul class="mt-3 list-disc pl-6 text-gray-700">
+              <li>Worked on modernizing client dashboards and responsive web components for financial applications.</li>
+              <li>Optimized REST APIs and reduced data payloads for faster client rendering.</li>
+              <li>Implemented secure authentication flows and improved unit test coverage.</li>
+            </ul>
+          </div>
+          <div class="md:w-1/2 flex justify-center md:justify-start">
+            <div class="timeline-dot w-16 h-16 rounded-full bg-gold flex items-center justify-center text-white font-bold text-xl">💼</div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="relative mb-12 flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div class="md:w-1/2 md:pr-12">
+            <p class="text-sm text-gray-500">May 2026 (Expected)</p>
+            <h3 class="text-2xl font-semibold mt-2">B.E. Computer Science & Engineering</h3>
+            <p class="text-gray-700 mt-2">Panimalar Engineering College, Chennai — CGPA: 8.81 / 10.0</p>
+          </div>
+          <div class="md:w-1/2 flex justify-center md:justify-start">
+            <div class="timeline-dot w-16 h-16 rounded-full bg-gold flex items-center justify-center text-white font-bold text-xl">🎓</div>
+          </div>
+        </div>
+
+        <!-- Recognition -->
+        <div class="relative mb-12 flex flex-col md:flex-row items-start md:items-center gap-4">
+          <div class="md:w-1/2 md:pr-12">
+            <p class="text-sm text-gray-500">Project Recognition</p>
+            <h3 class="text-2xl font-semibold mt-2">Smart India Hackathon Finalist</h3>
+            <p class="text-gray-700 mt-2">Recognized nationally for the Fake Social Media Profile Detection project.</p>
+          </div>
+          <div class="md:w-1/2 flex justify-center md:justify-start">
+            <div class="timeline-dot w-16 h-16 rounded-full bg-gold flex items-center justify-center text-white font-bold text-xl">🏆</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         CERTIFICATIONS / TESTIMONIALS / FAQ
+         =========================== -->
+    <section id="testimonials" class="mt-16 section-fade">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h4 class="font-semibold text-lg">Certifications</h4>
+          <ul class="mt-4 list-disc pl-6 text-gray-700">
+            <li>Smart India Hackathon — Finalist (Project Accreditation)</li>
+            <li>Online Courses: React, Node.js, Data Science (selected)</li>
+            <li>Workshops: IoT & Embedded Systems</li>
+          </ul>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h4 class="font-semibold text-lg">Selected Testimonials</h4>
+          <blockquote class="mt-4 text-gray-700">
+            "Pooja delivered clear, production-ready features and always kept the user in mind. Her work on the dashboard significantly improved performance." <br>
+            <span class="text-sm text-gray-500">— Project Mentor, FLATTRRADE</span>
+          </blockquote>
+        </div>
+
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h4 class="font-semibold text-lg">FAQ</h4>
+          <div class="mt-4 space-y-3 text-gray-700">
+            <details class="p-3 border rounded-md"><summary class="font-medium">Are you open to internships?</summary><div class="mt-2 text-sm">Yes — available for projects & internships in 2025-2026.</div></details>
+            <details class="p-3 border rounded-md"><summary class="font-medium">Preferred roles?</summary><div class="mt-2 text-sm">Full-Stack Developer, Backend Engineer, IoT Systems Developer.</div></details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===========================
+         CONTACT / FOOTER
+         =========================== -->
+    <section id="contact" class="mt-16 section-fade">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="p-6 bg-white rounded-3xl project-card">
+          <h3 class="text-2xl font-semibold">Let's Connect</h3>
+          <p class="text-gray-600 mt-2">I'm actively seeking software development and engineering opportunities for 2026. Reach out to collaborate!</p>
+          <div class="mt-4">
+            <p class="text-sm text-gray-500">Email</p>
+            <a class="text-gold font-semibold" href="mailto:poojashri.off@gmail.com">poojashri.off@gmail.com</a>
+          </div>
+          <div class="mt-4">
+            <p class="text-sm text-gray-500">GitHub</p>
+            <a href="https://github.com/pooojashri" target="_blank" class="underline">github.com/pooojashri</a>
+          </div>
+        </div>
+
+        <form id="contact-form" class="lg:col-span-2 p-6 bg-white rounded-3xl project-card" novalidate>
+          <h3 class="text-2xl font-semibold">Contact Form</h3>
+          <p class="text-gray-600 mt-2">Or use the mailto link above. This form uses client-side validation and will open an email if mail client is not configured.</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <input required id="name" name="name" placeholder="Your name" class="p-3 border rounded-md w-full" />
+            <input required id="email" name="email" type="email" placeholder="Your email" class="p-3 border rounded-md w-full" />
+            <input id="subject" name="subject" placeholder="Subject (optional)" class="p-3 border rounded-md w-full md:col-span-2" />
+            <textarea required id="message" name="message" placeholder="Message" rows="5" class="p-3 border rounded-md w-full md:col-span-2"></textarea>
+          </div>
+
+          <div class="mt-4 flex items-center gap-4">
+            <button type="submit" class="px-5 py-3 bg-gold text-white rounded-full font-semibold">Send Message</button>
+            <button type="button" id="mailFallback" class="px-4 py-2 border rounded-md text-gray-700">Open Email Client</button>
+            <div id="form-status" class="text-sm text-gray-600"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===========================
+         SMALL PRINT / FOOTER
+         =========================== -->
+    <footer class="mt-12 text-center text-gray-500 text-sm">
+      <div class="max-wide px-6 py-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div>© <span id="year"></span> Pooja Shri M. All rights reserved.</div>
+          <div class="flex items-center gap-4">
+            <a href="/assets/Pooja_Shri_M_Resume.pdf" target="_blank" class="underline">Resume PDF</a>
+            <a href="https://www.ljswrappings.store" target="_blank" class="underline">LJS Wrappings</a>
+            <a href="https://dmtodotcom.onrender.com" target="_blank" class="underline">DMToDotCom</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <!-- Footer -->
-  <footer id="contact" class="bg-gray-900 text-white">
-    <div class="container mx-auto px-10 py-20 text-center">
-      <h2 class="text-5xl font-bold mb-8">Let's Connect</h2>
-      <p class="mb-12 max-w-2xl mx-auto text-gray-300 text-2xl leading-relaxed">
-        I'm open to software engineering and web development opportunities for 2026. Let's collaborate and build something impactful!
-      </p>
-      <div class="flex justify-center items-center space-x-12 text-2xl">
-        <a href="mailto:poojashri.off@gmail.com" class="hover:text-b48843 flex items-center space-x-4">
-          <span class="text-4xl">📧</span><span class="font-medium">poojashri.off@gmail.com</span>
-        </a>
-        <a href="https://github.com/pooojashri" target="_blank" class="hover:text-b48843 flex items-center space-x-4">
-          <span class="text-4xl">💻</span><span class="font-medium">GitHub</span>
-        </a>
-      </div>
-      <p class="mt-20 text-base text-gray-500">&copy; 2025 Pooja Shri M. All Rights Reserved.</p>
-    </div>
-  </footer>
-
+  <!-- ===========================
+       SCRIPTS: interactions, modals, charts, form handling
+       =========================== -->
   <script>
-    // Mobile menu toggle
-    document.getElementById('menu-btn').addEventListener('click', () => {
-      document.getElementById('mobile-menu').classList.toggle('hidden');
-    });
+    /* =========================
+       Utility & DOM Ready
+       ========================= */
+    document.addEventListener('DOMContentLoaded', function () {
+      // show current year
+      document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Fade-in animations
-    const sections = document.querySelectorAll('.section-fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+      // mobile menu toggle
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileOpen = document.getElementById('mobile-open');
+      const mobileClose = document.getElementById('mobile-close');
+      mobileToggle.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('hidden');
+        mobileOpen.classList.toggle('hidden');
+        mobileClose.classList.toggle('hidden');
+      });
+
+      // intersection observer for fade-in sections
+      const fades = document.querySelectorAll('.section-fade');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08 });
+      fades.forEach(s => io.observe(s));
+
+      // modal management
+      const modalLayer = document.getElementById('modal-layer');
+      const modals = modalLayer.querySelectorAll('.modal-content');
+      const modalButtons = document.querySelectorAll('button[data-modal]');
+      const closeButtons = modalLayer.querySelectorAll('.close-modal');
+
+      modalButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.modal;
+          openModal(id);
+        });
+      });
+
+      closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          closeModalLayer();
+        });
+      });
+
+      modalLayer.addEventListener('click', (e) => {
+        if (e.target === modalLayer) closeModalLayer();
+      });
+
+      function openModal(id) {
+        modalLayer.classList.remove('hidden');
+        // hide all then show target
+        modals.forEach(m => m.classList.add('hidden'));
+        const target = document.getElementById(id);
+        if (target) target.classList.remove('hidden');
+        modalLayer.classList.add('flex', 'items-start', 'justify-center');
+        // trap focus (simple)
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModalLayer() {
+        modalLayer.classList.add('hidden');
+        modalLayer.classList.remove('flex', 'items-start', 'justify-center');
+        modals.forEach(m => m.classList.add('hidden'));
+        document.body.style.overflow = '';
+      }
+
+      // Chart: AI modal (accuracy vs error)
+      const aiCtx = document.getElementById('chart-ai');
+      if (aiCtx) {
+        new Chart(aiCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Accuracy (92%)', 'Error (8%)'],
+            datasets: [{
+              data: [92, 8],
+              backgroundColor: ['#10B981', '#EF4444'],
+              hoverOffset: 8,
+              borderColor: '#fff',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'bottom', labels: { padding: 12 } },
+              tooltip: { callbacks: { label: (ctx) => ctx.label } }
+            }
+          }
+        });
+      }
+
+      // Contact form - client-side
+      const contactForm = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = contactForm.name.value.trim();
+        const email = contactForm.email.value.trim();
+        const message = contactForm.message.value.trim();
+        if (!name || !email || !message) {
+          formStatus.textContent = 'Please fill required fields.';
+          setTimeout(() => formStatus.textContent = '', 3500);
+          return;
+        }
+        // Attempt to open mail client as fallback
+        const subject = encodeURIComponent(contactForm.subject.value || 'Portfolio Contact from ' + name);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:poojashri.off@gmail.com?subject=${subject}&body=${body}`;
+        formStatus.textContent = 'Opening your mail client...';
+      });
+
+      // Mail fallback button
+      document.getElementById('mailFallback').addEventListener('click', () => {
+        const subject = encodeURIComponent('Contacting Pooja Shri M — Website');
+        window.location.href = `mailto:poojashri.off@gmail.com?subject=${subject}`;
+      });
+
+      // Project modals: when opened, optionally render charts or dynamic content
+      // (Already created AI chart, more can be added similarly)
+
+      /* Accessibility: close modals on Escape */
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!modalLayer.classList.contains('hidden')) closeModalLayer();
         }
       });
-    }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
+
+    }); // DOMContentLoaded
   </script>
+  <!-- End scripts -->
 
 </body>
 </html>
+
 
 
 
