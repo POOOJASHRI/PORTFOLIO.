@@ -309,7 +309,7 @@
         </div>
         <div class="hero-links reveal">
           <a href="https://github.com/POOOJASHRI" target="_blank" rel="noopener">GitHub ↗</a>
-          <span class="editable">Add LinkedIn URL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span>
+          <a href="https://www.linkedin.com/in/poojashri-m-2a5363250/" target="_blank" rel="noopener">LinkedIn ↗</a>
           <a href="mailto:poojashri.off@gmail.com">poojashri.off@gmail.com</a>
         </div>
       </div>
@@ -330,7 +330,6 @@
     <div class="eyebrow reveal"><span class="num">01</span> — Work</div>
     <div class="sec-head reveal">
       <h2 class="sec-title">Featured Projects</h2>
-      
     </div>
 
     <div class="featured-grid">
@@ -380,7 +379,6 @@
         <div class="proj-top"><span class="proj-name">BloodBridge</span><span class="status-badge" style="border-color:var(--accent-2);color:var(--accent-2);">Naan Mudhalvan · 2024</span></div>
         <p class="proj-desc">Developed a cloud-based blood donation and distribution platform connecting hospitals, blood banks and donors for faster emergency blood coordination. Implemented emergency request management, donor tracking and real-time inventory monitoring using Flask, MySQL and AWS EC2/RDS, with a modular three-layer architecture designed for scalability and reliable data management.</p>
         <div class="proj-tech"><span class="chip">Flask</span><span class="chip">MySQL</span><span class="chip">AWS EC2</span><span class="chip">AWS RDS</span><span class="chip">VPC</span></div>
-        <div class="proj-actions"><span class="editable">Add repository / live link <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></div>
       </div>
       <div class="proj-card reveal">
         <div class="proj-top"><span class="proj-name">NeuroSoothe</span><span class="status-badge">Ongoing</span></div>
@@ -487,10 +485,10 @@
         <div class="ca-left"><span class="ca-label mono">GitHub</span><span class="ca-value">github.com/POOOJASHRI</span></div>
         <span class="ca-arrow">VIEW GITHUB →</span>
       </a>
-      <div class="contact-action">
-        <div class="ca-left"><span class="ca-label mono">LinkedIn</span><span class="ca-value editable" style="font-size:16px;">Add LinkedIn URL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></span></div>
-        <span class="ca-arrow" style="color:var(--text-faint)">CONNECT ON LINKEDIN →</span>
-      </div>
+      <a class="contact-action" href="https://www.linkedin.com/in/poojashri-m-2a5363250/" target="_blank" rel="noopener">
+        <div class="ca-left"><span class="ca-label mono">LinkedIn</span><span class="ca-value">linkedin.com/in/poojashri-m-2a5363250</span></div>
+        <span class="ca-arrow">CONNECT ON LINKEDIN →</span>
+      </a>
       <div class="contact-action">
         <div class="ca-left"><span class="ca-label mono">Location</span><span class="ca-value">Chennai, India</span></div>
       </div>
@@ -525,6 +523,11 @@ const ecommerce = [
 
 const experience = [
   {
+    role:"Software Development Intern", org:"Robowaves (A Unit of Test Yantra Software Solutions (India) Pvt. Ltd.)", platform:"", date:"25 Jun 2025 – 23 Aug 2025",
+    summary:"Worked on Java-based software development projects during the internship, gaining hands-on experience with Java programming and practical software development workflows.",
+    points:[], tech:["Java"], link:"", linkLabel:""
+  },
+  {
     role:"Web Development Intern", org:"Flattrade Broking Pvt. Ltd.", platform:"", date:"Duration to be added",
     summary:"Developed a responsive web dashboard for Flattrade clients to view, track and manage investment portfolios, with financial calculators and reports.",
     points:["Investment overview", "Stock trend visualization", "Transaction table", "Brokerage calculator"],
@@ -548,14 +551,12 @@ const skills = [
 ];
 
 const certifications = [
+  {name:"AWS Academy Graduate — Cloud Foundations", issuer:"Amazon Web Services (AWS) Training and Certification", date:"", skills:["AWS Cloud Foundations"]},
   {name:"Acquiring Data — AI Fundamentals of AI ASCEND (Level 1)", issuer:"Accenture · FutureSkills PRIME", date:"", skills:["AI Fundamentals"]},
   {name:"Natural Language Processing (NLP) and Text Mining — Tutorial for Beginners", issuer:"Simplilearn", date:"", skills:["NLP","Text Mining"]},
   {name:"Artificial Intelligence for Real World Application", issuer:"TCS iON", date:"Certificate of Participation", skills:["Applied AI"]},
   {name:"SQL", issuer:"DSRC", date:"", skills:["SQL"]},
-  {name:"Spring REST", issuer:"Spring", date:"", skills:["Spring REST"]},
-  {name:"Spring 5 Basics with Spring Boot", issuer:"Spring", date:"", skills:["Spring Boot"]},
-  {name:"Spring Data JPA with Boot", issuer:"Spring", date:"", skills:["Spring Data JPA"]},
-  {name:"iCAT", issuer:"TCS iON", date:"Certificate of Participation", skills:["Participation"]},
+  {name:"Spring Boot Certification", issuer:"Infosys Board", date:"", skills:["Spring Boot"]},
   {name:"QSpiders Certificate", issuer:"QSpiders", date:"", skills:[], courseTitleTBD:true},
 ];
 
@@ -713,4 +714,3 @@ if(window.matchMedia('(hover:hover) and (pointer:fine)').matches){
 </script>
 </body>
 </html>
-
